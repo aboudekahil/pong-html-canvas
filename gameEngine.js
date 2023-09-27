@@ -32,10 +32,11 @@ class GameEngine {
         this.ctx = this.canvas.getContext("2d");
 
         /** 
-            * @type{(function(CanvasRenderingContext2D): void)[]}
+            * @type{Sprite[]}
             * @private
             */
-        this.drawArray = [];
+        this.spriteArray = [];
+
     }
 
     clear() {
@@ -62,12 +63,19 @@ class GameEngine {
         this.spriteArray.push(sprite);
     }
 
-    update() {
+    update(dt) {
+        for(const sprite of this.spriteArray){
+            sprite.update(dt);
+        }
     }
 
     draw() {
         this.clear();
         this.fillCanvas("#000");
+
+        for(const sprite of this.spriteArray){
+            sprite.draw(this.ctx);
+        }
     }
 }
 
