@@ -1,3 +1,5 @@
+var totCount = 0;
+var negCount = 0;
 /**
  *
  * @class
@@ -33,6 +35,9 @@ class GameManager extends Sprite {
     let velx = Math.sign(randomNumber(-1, 1)) * randomNumber(0.2, 5);
     let vely = Math.sign(randomNumber(-1, 1)) * randomNumber(0.5, 5);
     ball.velocity = new Vector2d(velx, vely).normalizeInplace();
+    totCount++;
+    negCount += velx < 0;
+    console.log(negCount / totCount);
   }
 
   /**
@@ -46,6 +51,10 @@ class GameManager extends Sprite {
       this.score1 += win1;
       this.score2 += win2;
       this.resetBall();
+      paddle1.position.x = 10;
+      paddle2.position.x = canvas.width - 10 - paddle2.size.x / 2;
+      paddle1.position.y = canvas.height / 2 - paddle1.size.y / 2;
+      paddle2.position.y = canvas.height / 2 - paddle2.size.y / 2;
     }
 
     return win1 || win2;
@@ -55,6 +64,13 @@ class GameManager extends Sprite {
    * @param {number} dt
    */
   update(dt) {
-    if (this.checkWin()) return;
+    if (this.checkWin()) {
+      if (this.score1 == 10 || this.score2 == 10) {
+      }
+      return;
+    }
+
+    paddle1.checkBallCollision(ball);
+    paddle2.checkBallCollision(ball);
   }
 }
