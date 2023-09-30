@@ -89,7 +89,7 @@ class AiPaddle extends Sprite {
       this.position.y += this.speed * dt;
     } else if (
       ball.position.y < this.position.y + this.size.y / 2 &&
-      Math.random() <= 0.5
+      Math.random() <= 0.98
     ) {
       this.position.y -= this.speed * dt;
     }

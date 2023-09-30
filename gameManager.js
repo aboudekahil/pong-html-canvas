@@ -13,6 +13,17 @@ class GameManager extends Sprite {
     this.score2 = 0;
   }
 
+  resetGame() {
+    this.resetBall();
+    paddle1.position.x = 10;
+    paddle2.position.x = canvas.width - 10 - paddle2.size.x / 2;
+    paddle1.position.y = canvas.height / 2 - paddle1.size.y / 2;
+    paddle2.position.y = canvas.height / 2 - paddle2.size.y / 2;
+    this.score1 = 0;
+    this.score2 = 0;
+    game.gameState = "Playing";
+  }
+
   /**
    * @param {CanvasRenderingContext2D} ctx
    */
@@ -37,7 +48,6 @@ class GameManager extends Sprite {
     ball.velocity = new Vector2d(velx, vely).normalizeInplace();
     totCount++;
     negCount += velx < 0;
-    console.log(negCount / totCount);
   }
 
   /**
@@ -65,7 +75,8 @@ class GameManager extends Sprite {
    */
   update(dt) {
     if (this.checkWin()) {
-      if (this.score1 == 10 || this.score2 == 10) {
+      if (this.score1 === 10 || this.score2 === 10) {
+        game.gameState = "Won";
       }
       return;
     }
